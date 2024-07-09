@@ -1,6 +1,5 @@
+import { useEffect, useRef, useState } from 'react'
 import { utilService } from '../services/util.service.js'
-
-const { useState, useEffect, useRef } = React
 
 export function ToySort({ filterBy, onSetFilterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })

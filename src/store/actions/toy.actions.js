@@ -1,11 +1,11 @@
-// import { carService } from "../../services/car.service.js";
+import { toyService } from "../../services/toy.service.js";
 import { showSuccessMsg } from "../../services/event-bus.service.js";
 import { ADD_TOY, TOY_UNDO, REMOVE_TOY, SET_TOYS, SET_FILTER_BY, SET_IS_LOADING, UPDATE_TOY } from "../reducers/toy.reducer.js";
 import { store } from "../store.js";
 
-export function loadToys() {
-    const filterBy = store.getState().toyModule.filterBy
+export function loadToys(filterBy) {
     store.dispatch({ type: SET_IS_LOADING, isLoading: true })
+
     return toyService.query(filterBy)
         .then(toys => {
             store.dispatch({ type: SET_TOYS, toys })
@@ -56,6 +56,17 @@ export function saveToy(toy) {
         })
 }
 
+export function updateToy(toy) {
+    return toyService.save(toy).then((savedToy) => {
+      store.dispatch({
+        type: UPDATE_TOY,
+        toy: savedToy,
+      })
+    })
+  }
+
 export function setFilterBy(filterBy) {
     store.dispatch({ type: SET_FILTER_BY, filterBy })
 }
+
+

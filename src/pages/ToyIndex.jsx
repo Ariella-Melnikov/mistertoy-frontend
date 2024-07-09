@@ -60,7 +60,7 @@ export function ToyIndex() {
         showSuccessMsg(`Updated ${toyToSave.name} successfully`)
         return toyToSave
       })
-      .catch(() => showErrorMsg('Had trouble updating the todo'))
+      .catch(() => showErrorMsg('Had trouble updating the toy'))
   }
 
 
@@ -72,7 +72,6 @@ export function ToyIndex() {
         Add Toy
       </Link>
       <h2>Toys List</h2>
-      <PaginationBtns filterSortBy={filterBy} onChangePageIdx={onChangePageIdx} />
       {!isLoading ? (
         <ToyList toys={toys} onRemoveToy={onRemoveToy} onToggleToy={onToggleToy} />
       ) : (

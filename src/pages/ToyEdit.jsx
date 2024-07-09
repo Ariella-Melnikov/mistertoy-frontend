@@ -18,7 +18,7 @@ export function ToyEdit() {
     }, [])
 
     function loadToy() {
-        toyService.get(params.toyId)
+        toyService.getById(params.toyId)
             .then(setToyToEdit)
             .catch(err => console.log('err:', err))
     }

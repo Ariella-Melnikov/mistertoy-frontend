@@ -1,6 +1,38 @@
-:root {
+/* :root {
   --clr1: rgb(96, 107, 91);
   --clr2: rgb(120, 99, 110);
+
+  --clr1bg: rgb(153, 166, 149);
+  --clr1bg-light: rgb(205, 221, 200);
+  --clr2bg: rgb(233, 206, 221);
+  --clr2bg-light: rgb(253, 236, 246);
+
+  --gray1: rgb(240, 240, 240);
+  --gray2: rgb(155, 155, 155);
+  --gray3: rgb(44, 44, 44);
+
+}  */
+
+/* Disney */
+
+:root {
+  --clr1: #ee1d23;
+  --clr2: #ffc90e;
+  --clr3: #0077c8;
+
+  /* Accent Colors: */
+
+  --clr4: #3d9a35;
+  --clr5: #a3cdf3;
+  --clr6: #f1f1f1;
+
+  /* Background Colors: */
+
+  --clr7: #f7f7f7;
+  --clr8: #e0e0e0;
+
+
+
 
   --clr1bg: rgb(153, 166, 149);
   --clr1bg-light: rgb(205, 221, 200);

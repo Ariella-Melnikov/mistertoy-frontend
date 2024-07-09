@@ -41,7 +41,7 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
     onSetFilterBy(filterByToEdit)
   }
 
-  const { name, inStock } = filterByToEdit
+  const { name, inStock, price, labels } = filterByToEdit
   const allLabels = [
     'Doll',
     'Battery Powered',
@@ -60,19 +60,17 @@ export function ToyFilter({ filterBy, onSetFilterBy }) {
     <section className='toy-filter'>
       <h2>Filter Toys</h2>
       <form onSubmit={onSubmitFilter}>
-        <input value={name} onChange={handleChange} type='search' placeholder='By Txt' id='name' name='name' />
-        
-        <select
-          value={inStock}
-          className='flex justify-center align-center'
-          name='inStock'
-          onChange={(ev) => handleChange(ev)}>
+        <input value={name} onChange={handleChange} type='search' placeholder='By Name' name='name' />
+
+        <select value={inStock} className='flex justify-center align-center' name='inStock' onChange={handleChange}>
           <option value='all'>All</option>
           <option value='in stock'>In stock</option>
-          <option value='sold out'>Soldout</option>
+          <option value='sold out'>Sold Out</option>
         </select>
 
-        <select multiple value={labels} className='toy-labels' name='labels' onChange={(ev) => handleChange(ev)}>
+        <input value={price} onChange={handleChange} type='number' placeholder='By Price' name='price' />
+
+        <select multiple value={labels} className='toy-labels' name='labels' onChange={handleChange}>
           {allLabels.map((label) => (
             <option key={label} value={label}>
               {label}

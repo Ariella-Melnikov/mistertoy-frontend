@@ -11,6 +11,7 @@ export const toyService = {
   remove,
   getEmptyToy,
   getDefaultFilter,
+  getFilterFromSearchParams,
 }
 
 function query(filterBy = {}) {
@@ -73,7 +74,23 @@ function getEmptyToy(name = '', price = 0, labels = []) {
 }
 
 function getDefaultFilter() {
-  return { name: '', maxPrice: ''}
+  return {
+    name: '',
+    inStock: 'all',
+    price: 0,
+    sort: '',
+  }
+}
+
+function getFilterFromSearchParams(searchParams) {
+  const filterBy = {
+    name: searchParams.get('name') || '',
+    inStock: searchParams.get('inStock') || 'all',
+    price: +searchParams.get('price') || 0,
+    sort: searchParams.get('sort') || '',
+  }
+
+  return filterBy
 }
 
 function _createToys() {

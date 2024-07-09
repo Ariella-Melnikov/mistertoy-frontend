@@ -1,6 +1,6 @@
 .app-header {
-    background-color: var(--clr1);
-    color: var(--clr2bg-light);
+    background-color: var(--clr5);
+    color: var(--gray3);
 
 }
 
@@ -30,7 +30,7 @@ a.active {
     gap: 15px;
 }
 
-.todos-progress {
+.toys-progress {
     text-align: center;
 }
 
@@ -59,8 +59,8 @@ a.active {
     color: rgb(8, 3, 28);
 }
 
-@media (max-width: 720px) {
+/* @media (max-width: 720px) {
     .app-header {
         color: var(--clr2bg-light);
     }
-}
+} */
