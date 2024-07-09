@@ -8,11 +8,11 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 // import { AboutUs } from './pages/AboutUs.jsx'
 // import { CarIndex } from './pages/CarIndex.jsx'
 // import { store } from './store/store.js'
-// import { CarEdit } from './pages/CarEdit.jsx'
 // import { UserDetails } from './pages/UserDetails.jsx'
 
-import "../src/assets/style/main.css"
+
 import { ToyDetails } from './pages/ToyDetails.jsx'
+import { ToyEdit } from './pages/ToyEdit.jsx'
 
 
 export function App() {
@@ -24,11 +24,11 @@ export function App() {
           {/* <AppHeader /> */}
           <main className='main-layout'>
             <Routes>
-              {/* <Route element={<HomePage />} path="/" />
-              <Route element={<AboutUs />} path="/about" />
-              <Route element={<CarIndex />} path="/car" />
-              <Route element={<CarEdit />} path="/car/edit" />
-              <Route element={<CarEdit />} path="/car/edit/:carId" /> */}
+              {/* <Route element={<HomePage />} path="/" /> */}
+              {/* <Route element={<AboutUs />} path="/about" />
+              <Route element={<CarIndex />} path="/car" /> */}
+              <Route element={<ToyEdit />} path="/toy/edit" />
+              <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
               <Route element={<ToyDetails />} path="/toy/:toyId" />
               {/* <Route element={<UserDetails />} path="/user/:userId" /> */}
             </Routes>
