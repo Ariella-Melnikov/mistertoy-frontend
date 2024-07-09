@@ -1,32 +1,21 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { useEffect } from 'react'
 
 import { ToyList } from '../cmps/ToyList.jsx'
-import { toyService } from '../services/toy.service.js'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-import { loadToys, removeToy, saveToy, setFilterBy } from '../store/actions/toy.actions.js'
+import { loadToys, removeToy, saveToy, setFilterBy, removeToyOptimistic } from '../store/actions/toy.actions.js'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
-import { SET_FILTER_BY } from '../store/reducers/toy.reducer.js'
 import { ToySort } from '../cmps/ToySort.jsx'
 
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
   const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
-
-  const [searchParams, setSearchParams] = useSearchParams()
-  const defaultFilter = toyService.getFilterFromSearchParams(searchParams)
   const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
 
-  const dispatch = useDispatch()
 
   useEffect(() => {
-    setFilterBy({ ...defaultFilter })
-  }, [])
-
-  useEffect(() => {
-    setSearchParams(filterBy)
-    loadToys(filterBy).catch(() => {
+    loadToys().catch(() => {
       showErrorMsg('Could not load toys')
     })
   }, [filterBy])
@@ -34,10 +23,10 @@ export function ToyIndex() {
   function onRemoveToy(toyId) {
     const ans = confirm('Do you want to delete this toy?')
     if (!ans) return
-    removeToy(toyId)
+    removeToyOptimistic(toyId)
       .then(() => {
         console.log('removed toy ' + toyId)
-        showSuccessMsg(`Removed toy with ${toyId} id successfully`)
+        showSuccessMsg(`Removed toy successfully`)
       })
       .catch((err) => {
         console.log('err:', err)
@@ -45,13 +34,6 @@ export function ToyIndex() {
       })
   }
 
-  function setFilterSort(filterBy) {
-    const action = {
-      type: SET_FILTER_BY,
-      filterBy,
-    }
-    dispatch(action)
-  }
 
   function onToggleToy(toy) {
     const toyToSave = { ...toy, inStock: !toy.inStock }
@@ -66,8 +48,8 @@ export function ToyIndex() {
 
   return (
     <section className='toy-index'>
-      <ToyFilter filterBy={defaultFilter} onSetFilterBy={setFilterSort} />
-      <ToySort filterBy={defaultFilter} onSetFilterBy={setFilterSort} />
+      <ToyFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
+      <ToySort filterBy={filterBy} onSetFilterBy={setFilterBy} />
       <Link to='/toy/edit' className='add-toy-btn btn'>
         Add Toy
       </Link>

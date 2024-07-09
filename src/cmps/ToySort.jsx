@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import { utilService } from '../services/util.service.js'
+import { useEffectUpdate } from './customHooks/useEffectUpdate.js' 
+
 
 export function ToySort({ filterBy, onSetFilterBy }) {
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
-  const debouncedSetFilterRef = useRef(utilService.debounce(onSetFilterBy, 500))
+  onSetFilterBy = useRef(utilService.debounce(onSetFilterBy, 500))
 
-  useEffect(() => {
-    // Notify parent
-    debouncedSetFilterRef.current(filterByToEdit)
-  }, [filterByToEdit])
+  useEffectUpdate(() => {
+    onSetFilterBy.current(filterByToEdit)
+
+}, [filterByToEdit])
 
   function handleChange({ target }) {
     const field = target.name
