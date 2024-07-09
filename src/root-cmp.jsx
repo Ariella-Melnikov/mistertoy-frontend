@@ -1,7 +1,3 @@
-import { useState } from 'react'
-// const Router = ReactRouterDOM.BrowserRouter
-// const { Route, Routes } = ReactRouterDOM
-// const { Provider } = ReactRedux
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
@@ -13,10 +9,10 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 // import { CarIndex } from './pages/CarIndex.jsx'
 // import { store } from './store/store.js'
 // import { CarEdit } from './pages/CarEdit.jsx'
-// import { CarDetails } from './pages/CarDetails.jsx'
 // import { UserDetails } from './pages/UserDetails.jsx'
 
 import "../src/assets/style/main.css"
+import { ToyDetails } from './pages/ToyDetails.jsx'
 
 
 export function App() {
@@ -27,15 +23,15 @@ export function App() {
         <section className="app">
           {/* <AppHeader /> */}
           <main className='main-layout'>
-            {/* <Routes>
-              <Route element={<HomePage />} path="/" />
+            <Routes>
+              {/* <Route element={<HomePage />} path="/" />
               <Route element={<AboutUs />} path="/about" />
               <Route element={<CarIndex />} path="/car" />
               <Route element={<CarEdit />} path="/car/edit" />
-              <Route element={<CarEdit />} path="/car/edit/:carId" />
-              <Route element={<CarDetails />} path="/car/:carId" />
-              <Route element={<UserDetails />} path="/user/:userId" />
-            </Routes> */}
+              <Route element={<CarEdit />} path="/car/edit/:carId" /> */}
+              <Route element={<ToyDetails />} path="/toy/:toyId" />
+              {/* <Route element={<UserDetails />} path="/user/:userId" /> */}
+            </Routes>
           </main>
           {/* <AppFooter /> */}
         </section>
