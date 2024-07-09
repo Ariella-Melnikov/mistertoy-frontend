@@ -1,18 +1,19 @@
 import { Provider } from 'react-redux'
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
-// import { AppHeader } from './cmps/AppHeader.jsx'
-// import { AppFooter } from './cmps/AppFooter.jsx'
+import { AppHeader } from './cmps/AppHeader.jsx'
+import { AppFooter } from './cmps/AppFooter.jsx'
 
-// import { HomePage } from './pages/HomePage.jsx'
 // import { AboutUs } from './pages/AboutUs.jsx'
-// import { CarIndex } from './pages/CarIndex.jsx'
-// import { store } from './store/store.js'
-// import { UserDetails } from './pages/UserDetails.jsx'
+import { HomePage } from './pages/HomePage.jsx'
 
-
+import { store } from './store/store.js'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { ToyEdit } from './pages/ToyEdit.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
+
+import "../src/assets/style/main.css"
+
 
 
 export function App() {
@@ -21,19 +22,18 @@ export function App() {
     <Provider store={store}>
       <Router>
         <section className="app">
-          {/* <AppHeader /> */}
+          <AppHeader />
           <main className='main-layout'>
             <Routes>
-              {/* <Route element={<HomePage />} path="/" /> */}
-              {/* <Route element={<AboutUs />} path="/about" />
-              <Route element={<CarIndex />} path="/car" /> */}
+              <Route element={<HomePage />} path="/" />
+              {/* <Route element={<AboutUs />} path="/about" /> */}
+              <Route element={<ToyIndex />} path="/toy" />
               <Route element={<ToyEdit />} path="/toy/edit" />
               <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
               <Route element={<ToyDetails />} path="/toy/:toyId" />
-              {/* <Route element={<UserDetails />} path="/user/:userId" /> */}
             </Routes>
           </main>
-          {/* <AppFooter /> */}
+          <AppFooter />
         </section>
       </Router>
     </Provider>
