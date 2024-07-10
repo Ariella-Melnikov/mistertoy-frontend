@@ -1,6 +1,23 @@
 import { httpService } from './http.service.js'
 
 const BASE_URL = 'toy/'
+const STORAGE_KEY = 'toyDB'
+
+const labels = [
+  'Doll',
+  'Battery Powered',
+  'Interactive',
+  'Indoor',
+  'Outdoor',
+  'Action Figure',
+  'Collectible',
+  'Eco-friendly',
+  'Fantasy',
+  'Preschool',
+  'Travel-friendly',
+  'Baby'
+]
+
 
 export const toyService = {
   query,
@@ -9,11 +26,12 @@ export const toyService = {
   remove,
   getEmptyToy,
   getDefaultFilter,
-  getFilterFromSearchParams,
+  getDefaultSort,
+  getToyLabels,
 }
 
-function query(filterBy = {}) {
-  return httpService.get(BASE_URL, filterBy)
+function query(filterBy = {}, sortBy, pageIdx) {
+  return httpService.get(BASE_URL, { filterBy, sortBy, pageIdx })
 }
 
 function getById(toyId) {
@@ -24,38 +42,41 @@ function remove(toyId) {
 }
 
 function save(toy) {
-  if (toy._id) {
-    return httpService.put(BASE_URL, toy)
-  } else {
-    return httpService.post(BASE_URL, toy)
-  }
+  const method = toy._id ? 'put' : 'post'
+  return httpService[method](BASE_URL, toy)
 }
 
 function getEmptyToy() {
   return {
     name: '',
-    price: 0,
-    labels: [],
-    inStock: true,
+    price: '',
+    labels: _getRandomLabels(),
   }
 }
 
 function getDefaultFilter() {
   return {
-    name: '',
-    inStock: 'all',
-    price: 0,
-    sort: '',
+    txt: '',
+    inStock: null,
+    labels: [],
+    pageIdx: 0,
   }
 }
 
-function getFilterFromSearchParams(searchParams) {
-  const filterBy = {
-    name: searchParams.get('name') || '',
-    inStock: searchParams.get('inStock') || 'all',
-    price: +searchParams.get('price') || 0,
-    sort: searchParams.get('sort') || '',
-  }
+function getDefaultSort() {
+  return { type: '', desc: 1 }
+}
 
-  return filterBy
+function getToyLabels() {
+  return [...labels]
+}
+
+function _getRandomLabels() {
+  const labelsCopy = [...labels]
+  const randomLabels = []
+  for (let i = 0; i < 2; i++) {
+    const randomIdx = Math.floor(Math.random() * labelsCopy.length)
+    randomLabels.push(labelsCopy.splice(randomIdx, 1)[0])
+  }
+  return randomLabels
 }
