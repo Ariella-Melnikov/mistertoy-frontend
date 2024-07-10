@@ -21,7 +21,7 @@ const initialState = {
     isLoading: false,
     error: null,
   },
-  storeLocation: [],
+  storeLocations: [],
 }
 
 export function toyReducer(state = initialState, action = {}) {
@@ -59,6 +59,7 @@ export function toyReducer(state = initialState, action = {}) {
 
     case SET_ERROR:
       return { ...state, flag: { ...state.flag, error: action.error } }
+
 
     default:
       return state

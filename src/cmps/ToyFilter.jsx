@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { useEffectUpdate } from './customHooks/useEffectUpdate.js'
+import { FormControl, InputLabel, Select, MenuItem, Box, Typography } from '@mui/material'
 
 import { toyService } from '../services/toy.service.js'
 import { utilService } from '../services/util.service.js'
@@ -35,32 +36,44 @@ export function ToyFilter({ filterBy, onSetFilter, sortBy, onSetSort }) {
   const { name, inStock, labels } = filterByToEdit
 
   return (
-    <section className='toy-filter'>
-      <h2>Filter Toys</h2>
+    <Box className='toy-filter' p={2} boxShadow={3}>
+      <Typography variant='h6' gutterBottom>
+        Filter Toys
+      </Typography>
       <form onSubmit={onSubmitFilter}>
+        <FormControl fullWidth margin='normal'>
+          <InputLabel id='inStock-label'>Stock Status</InputLabel>
+          <Select
+            labelId='inStock-label'
+            value={inStock || ''}
+            name='inStock'
+            onChange={handleChange}
+            label='Stock Status'>
+            <MenuItem value='all'>All</MenuItem>
+            <MenuItem value='true'>In stock</MenuItem>
+            <MenuItem value='false'>Sold Out</MenuItem>
+          </Select>
+        </FormControl>
 
-        <select
-          value={inStock || ''}
-          className='flex justify-center align-center'
-          name='inStock'
-          onChange={handleChange}>
-          <option value='all'>All</option>
-          <option value='true'>In stock</option>
-          <option value='false'>Sold Out</option>
-        </select>
-
-        <select multiple name='labels' value={labels || []} onChange={handleChange}>
-          <option value=''>Labels</option>
-          <>
+        <FormControl fullWidth margin='normal'>
+          <InputLabel id='labels-label'>Labels</InputLabel>
+          <Select
+            labelId='labels-label'
+            multiple
+            name='labels'
+            value={labels || []}
+            onChange={handleChange}
+            renderValue={(selected) => selected.join(', ')}
+            label='Labels'>
             {toyLabels.map((label) => (
-              <option key={label} value={label}>
+              <MenuItem key={label} value={label}>
                 {label}
-              </option>
+              </MenuItem>
             ))}
-          </>
-        </select>
+          </Select>
+        </FormControl>
       </form>
       <ToySort sortBy={sortBy} onSetSort={onSetSort} />
-    </section>
+    </Box>
   )
 }

@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from 'react'
+import { TextField, MenuItem, Button } from '@mui/material'
 
 import { utilService } from '../services/util.service.js'
 
 export function ToyFilterSearch({ filterBy, onSetFilter }) {
-  console.log('filterBy',filterBy)
+  console.log('filterBy', filterBy)
   const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
 
   const debouncedOnSetFilter = useRef(utilService.debounce(onSetFilter, 400))
@@ -34,7 +35,7 @@ export function ToyFilterSearch({ filterBy, onSetFilter }) {
     <section className='toy-filter-seaerch'>
       <form onSubmit={onSubmitFilter}>
         <div className='filter-input-wrapper'>
-          <input onChange={handleChange} value={txt} type='text' placeholder='Im looking for' name='txt' />
+          <TextField onChange={handleChange} variant='outlined' value={txt} type='text' placeholder='Im looking for' name='txt' style={{ marginBottom: '1rem' }} fullWidth />
         </div>
       </form>
     </section>

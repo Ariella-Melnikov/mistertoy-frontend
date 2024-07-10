@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
-import { utilService } from '../services/util.service.js'
-import { useEffectUpdate } from './customHooks/useEffectUpdate.js' 
+import { FormControl, InputLabel, Select, MenuItem, FormControlLabel, Checkbox, Box } from '@mui/material';
+
 
 
 export function ToySort({ sortBy, onSetSort }) {
@@ -20,22 +20,32 @@ export function ToySort({ sortBy, onSetSort }) {
   }
 
   return (
-    <form className='sort-container'>
-       <select name="type" value={sortByToEdit.type} onChange={handleChange}>
-        <option value="">Sort by</option>
-        <option value="name">Name</option>
-        <option value="price">Price</option>
-        <option value="createdAt">Date</option>
-      </select>
-      <label>
-        <input
-          type="checkbox"
-          name="desc"
-          checked={sortByToEdit.desc < 0}
+    <Box className='sort-container' display='flex' flexDirection='column' p={2} boxShadow={3}>
+      <FormControl fullWidth margin='normal'>
+        <InputLabel id='sort-type-label'>Sort by</InputLabel>
+        <Select
+          labelId='sort-type-label'
+          name='type'
+          value={sortByToEdit.type}
           onChange={handleChange}
-        />
-        Descending
-      </label>
-    </form>
-  )
+          label='Sort by'
+        >
+          <MenuItem value=''>Sort by</MenuItem>
+          <MenuItem value='name'>Name</MenuItem>
+          <MenuItem value='price'>Price</MenuItem>
+          <MenuItem value='createdAt'>Date</MenuItem>
+        </Select>
+      </FormControl>
+      <FormControlLabel
+        control={
+          <Checkbox
+            name='desc'
+            checked={sortByToEdit.desc < 0}
+            onChange={handleChange}
+          />
+        }
+        label='Descending'
+      />
+    </Box>
+  );
 }

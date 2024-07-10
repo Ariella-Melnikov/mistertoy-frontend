@@ -1,27 +1,37 @@
-.toy-filter {
-    background-color: var(--clr2bg);
-    padding: 1em;
-    margin: 1em 0;
+.toy-filter, .sort-container {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px 0;
 }
 
-.toy-filter-search {
-    padding: 1em;
-    margin: 1em 0;
-    display: flex;
-    justify-content: center; /* Center the search input horizontally */
-  }
-  
-  .toy-filter-search input {
-    width: 300px; /* Adjust the width as needed */
-    padding: 0.75em; /* Increase padding for a larger input */
-    border-radius: 25px; /* Make the borders round */
-    border: 1px solid #ccc; /* Add a light border */
-    font-size: 1em; /* Increase font size for better readability */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
-    transition: box-shadow 0.3s ease; /* Optional: Smooth transition for shadow */
-  }
-  
-  .toy-filter-search input:focus {
-    outline: none; /* Remove default focus outline */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Optional: Enhanced shadow on focus */
-  }
+.toy-filter h2, .sort-container h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.MuiFormControl-root {
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.MuiInputLabel-root {
+  color: var(--clr9);
+}
+
+.MuiSelect-root {
+  color: var(--clr9);
+}
+
+.MuiMenuItem-root {
+  color: var(--clr9);
+}
+
+.MuiCheckbox-root {
+  color: var(--clr9);
+}
+
+.MuiFormControlLabel-label {
+  color: var(--clr9);
+}

@@ -3,6 +3,7 @@ import { httpService } from './http.service.js'
 const BASE_URL = 'toy/'
 const STORAGE_KEY = 'toyDB'
 
+
 const labels = [
   'Doll',
   'Battery Powered',

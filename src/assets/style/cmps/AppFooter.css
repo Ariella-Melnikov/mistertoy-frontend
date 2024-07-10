@@ -2,5 +2,7 @@ footer {
     padding-block-end: 20px;
     display: flex;
     justify-content: center;
-    background-color: var(--clr5);
+    background-color: var(--clr9);
+    color: var(--gray1);
+    font: 16px;
 }
