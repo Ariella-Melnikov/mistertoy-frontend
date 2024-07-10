@@ -1,39 +1,48 @@
 // import { Link } from "react-router-dom"
 
-import { useEffect, useState } from "react"
-import { Link, Navigate, useParams } from "react-router-dom"
+import { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
+import { showErrorMsg } from '../services/event-bus.service.js'
 
-import { toyService } from "../services/toy.service.js"
+import { toyService } from '../services/toy.service.js'
+import { Loader } from '../cmps/Loader.jsx'
 
 export function ToyDetails() {
-    const [toy, setToy] = useState(null)
-    const { toyId } = useParams()
+  const [toy, setToy] = useState(null)
+  const { toyId } = useParams()
+  const navigate = useNavigate()
 
-    useEffect(() => {
-        if (toyId) loadToy()
-    }, [toyId])
+  useEffect(() => {
+    loadToy()
+  }, [toyId])
 
-    function loadToy() {
-        toyService.getById(toyId)
-            .then(toy => setToy(toy))
-            .catch(err => {
-                console.log('Had issues in toy details', err)
-                Navigate('/toy')
-            })
-    }
-    if (!toy) return <div>Loading...</div>
-    return (
-        <section className="toy-details">
-            <h1>Toy name : {toy.name}</h1>
-            <h5>Price: ${toy.price}</h5>
-            <h5>Toy labels: {toy.labels.join(', ')}</h5>
-            <h5>Status: {toy.inStock ? 'In Stock' : 'Out of Stock'}</h5>
+  function loadToy() {
+    toyService
+      .getById(toyId)
+      .then((toy) => setToy(toy))
+      .catch((err) => {
+        console.log('Had issues in toy details', err)
+        showErrorMsg('Cannot load toy')
+        navigate('/toy')
+      })
+  }
+  if (!toy) return <Loader />
 
-            {/* <Link to={`/toy/edit/${toy._id}`}>Edit</Link> &nbsp; */}
-            {/* <Link to={`/toy`}>Back</Link> */}
-            {/* <p>
-                <Link to="/toy/nJ5L4">Next toy</Link>
-            </p> */}
-        </section>
-    )
+  return (
+    <section className='toy-details' style={{ textAlign: 'center' }}>
+      <h1>
+        Toy name: <span>{toy.name}</span>
+      </h1>
+      <h1>
+        Toy price: <span>${toy.price}</span>
+      </h1>
+      <h1>
+        Labels: <span>{toy.labels.join(' ,')}</span>
+      </h1>
+      <h1 className={toy.inStock ? 'green' : 'red'}>{toy.inStock ? 'In stock' : 'Not in stock'}</h1>
+      <button>
+        <Link to='/toy'>Back</Link>
+      </button>
+    </section>
+  )
 }

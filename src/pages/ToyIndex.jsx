@@ -1,31 +1,36 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
+import { Loader } from '../cmps/Loader.jsx'
+import { PaginationButtons } from '../cmps/PaginationButtons.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
-import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
-import { loadToys, removeToy, saveToy, setFilterBy, removeToyOptimistic } from '../store/actions/toy.actions.js'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
-import { ToySort } from '../cmps/ToySort.jsx'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
+import { loadToys, saveToy, setFilter, setSort, removeToyOptimistic } from '../store/actions/toy.actions.js'
 
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
   const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
-  const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
+  const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
+  const sortBy = useSelector(storeState => storeState.toyModule.sortBy)
 
+  const [pageIdx, setPageIdx] = useState(0)
 
   useEffect(() => {
-    loadToys().catch(() => {
-      showErrorMsg('Could not load toys')
-    })
-  }, [filterBy])
+    loadToys(pageIdx)
+      .catch(err => {
+        console.log('err:', err)
+        showErrorMsg('Cannot load toys')
+      })
+  }, [filterBy, sortBy, pageIdx])
 
   function onRemoveToy(toyId) {
     const ans = confirm('Do you want to delete this toy?')
     if (!ans) return
     removeToyOptimistic(toyId)
       .then(() => {
-        console.log('removed toy ' + toyId)
+        loadToys(pageIdx)
         showSuccessMsg(`Removed toy successfully`)
       })
       .catch((err) => {
@@ -45,20 +50,33 @@ export function ToyIndex() {
       .catch(() => showErrorMsg('Had trouble updating the toy'))
   }
 
+  function onSetFilter(filterBy) {
+    setFilter(filterBy)
+  }
+
+  function onSetSort(sortBy) {
+    setSort(sortBy)
+  }
+
 
   return (
     <section className='toy-index'>
-      <ToyFilter filterBy={filterBy} onSetFilterBy={setFilterBy} />
-      <ToySort filterBy={filterBy} onSetFilterBy={setFilterBy} />
+      <ToyFilter
+        filterBy={filterBy}
+        onSetFilter={onSetFilter}
+        sortBy={sortBy}
+        onSetSort={onSetSort}
+      />
       <Link to='/toy/edit' className='add-toy-btn btn'>
         Add Toy
       </Link>
-      <h2>Toys List</h2>
-      {!isLoading ? (
-        <ToyList toys={toys} onRemoveToy={onRemoveToy} onToggleToy={onToggleToy} />
-      ) : (
-        <div>Loading...</div>
-      )}
+      {isLoading && <Loader />}
+      {!isLoading && <ToyList toys={toys} onRemoveToy={onRemoveToy} onToggleToy={onToggleToy} />}
+      <PaginationButtons
+        pageIdx={pageIdx}
+        setPageIdx={setPageIdx}
+        toysLength={toys.length}
+      />
     </section>
   )
 }
