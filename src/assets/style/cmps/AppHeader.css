@@ -1,27 +1,61 @@
 .app-header {
-    background-color: var(--clr5);
-    color: var(--gray3);
+    background-color: var(--clr9);
+    color: var(--gray1);
+    display: flex;
+    flex-direction: column;
+}
+
+.upper-head-container {
+    background-color: var(--clr10);
+    color: var(--gray1);
+    margin-bottom: 10px;
+}
+
+.app-header-nav {
+    margin-inline-start: 20px;
+    display: flex;
+    margin-top: 10px;
+    font-size: 18px;
+    justify-content: space-between;
+    /* align-items: center; */
+    /* justify-content: flex-end; */
+    /* gap: 15px; */
 
 }
+.app-nav-last-child {
+        justify-content:end;
+        margin-inline-end: 10px;
+        margin-inline: 20px;
+
+}
+
 
 .header-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    margin-top: 10px;
+    padding: 10px 20px;
 }
 
 .header-container h1 {
-    /* flex-grow: 1; */
+    margin: 0;
 }
 
 .app-nav {
     display: flex;
     gap: 15px;
+    color: var(--gray1);
+    font-weight: bold;
+    font-size: 20px;
+    text-decoration: none;
 }
 
 
 a.active {
-    color: rgb(241, 212, 241);
+    color: var(--clr5);
     font-weight: 600;
     text-decoration: underline;
 }
@@ -29,36 +63,44 @@ a.active {
 .header-container .container {
     gap: 15px;
 }
+.first-row-container{
+    display: flex;
+    flex-direction: row;
+    margin-inline: 20px;
+    margin-inline-start: 20px;
+    gap: 20px;
+    align-items: center;
+    margin-bottom: 20px;
 
-.toys-progress {
-    text-align: center;
 }
 
-.progress-bar-container {
-    max-width: 250px;
-    width: 20vw;
-    height: 50px;
+.filter-input-wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.filter-input-wrapper .MuiInputBase-root {
     background-color: white;
-    margin-inline: .5em;
-    position: relative;
+    border-radius: 20px;
+    width: 200%;
 }
 
-.progress-bar-container div {
-    background-color: limegreen;
-    height: 100%;
-    transition: 0.4s;
+.filter-input-wrapper .MuiInputBase-input {
+    color: var(--gray5);
+    font-size: 20px;
+    padding: 10px;
 }
 
-
-.progress-bar-container span {
-    position: absolute;
-    inset: 0;
-    margin: auto;
-    width: fit-content;
-    height: fit-content;
-    color: rgb(8, 3, 28);
+.logo-container {
+    display: flex;
+    align-items: center;
 }
 
+.logo-container img {
+    width: 150px; /* Adjust size as needed */
+    height: auto;
+    margin-right: 10px;
+}
 /* @media (max-width: 720px) {
     .app-header {
         color: var(--clr2bg-light);
