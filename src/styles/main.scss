@@ -1,0 +1,15 @@
+//FONT
+@import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css');
+
+//SETUP
+@import 'setup/variables';
+@import 'setup/typography';
+@import 'setup/mixins';
+@import 'setup/functions';
+
+//BASE
+@import 'base/base';
+@import 'base/helpers';
+@import 'base/layout';
+
