@@ -8,7 +8,6 @@ import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 import { loadToys, saveToy, setFilter, setSort, removeToyOptimistic } from '../store/actions/toy.actions.js'
-import { GoogleMap } from '../cmps/GoogleMap.jsx'
 
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
@@ -80,9 +79,6 @@ export function ToyIndex() {
         setPageIdx={setPageIdx}
         toysLength={toys.length}
       />
-      <section>
-      <GoogleMap />
-      </section>
     </section>
   )
 }

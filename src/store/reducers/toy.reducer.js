@@ -21,7 +21,6 @@ const initialState = {
     isLoading: false,
     error: null,
   },
-  storeLocations: [],
 }
 
 export function toyReducer(state = initialState, action = {}) {

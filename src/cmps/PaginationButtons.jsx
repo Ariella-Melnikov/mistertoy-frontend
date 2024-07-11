@@ -1,4 +1,6 @@
 export function PaginationButtons({ pageIdx, setPageIdx, toysLength }) {
+
+
   return (
     <div className="pagination">
       <button onClick={() => setPageIdx(pageIdx - 1)} disabled={pageIdx === 0}>
