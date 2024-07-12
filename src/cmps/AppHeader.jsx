@@ -16,32 +16,35 @@ export function AppHeader() {
   }
 
   return (
-    <header className='app-header full main-layout'>
-      <section className='upper-head-container full'>
-        <nav className='app-header-nav app-nav'>
-        <p> add coin/language</p>
-          <Link to='/toy/stores'>Find a store</Link>
-          <div className='app-nav app-nav-last-child' >
-          <NavLink to='/'>Home</NavLink>
-          {/* <NavLink to="/about" >About</NavLink> */}
-          <NavLink to='/toy'>Toys</NavLink>
-          <NavLink to='/toy/dash'>Toy info chart</NavLink>
-          </div>
+    <header className="main-header full main-layout">
+        <nav className="upper-nav">
+        <ul className="site-switcher clean-list flex">
+          <li><p> add coin/language</p></li>
+          <li><Link to="/toy/stores">Find a store</Link></li>
+        </ul>
+        <ul className="sign-in-tab clean-list flex">
+          <li><p> Log In/Sign Up</p></li>
+          <li><p> My Orders</p></li>
+          <li><p> Cart</p></li>
+          <li><NavLink to="/toy/dash">Toy info chart</NavLink></li>
+        </ul>
         </nav>
-      </section>
-      <section className='header-container'>
-        <section className='first-row-container'>
-          <div className="logo-container">
-            <img src={logo} alt='logo' />
+        <div className="logo-serach flex">
+          <div className="main-header-logo flex">
+            <img src={logo} alt="logo" />
           </div>
-
-          <div>
+          <div className="search-bar flex">
             <ToyFilterSearch filterBy={filterBy} onSetFilter={handleSetFilter} />
           </div>
-        </section>
-
-      </section>
-      <UserMsg />
+      </div>
+      <nav className="lower-nav">
+        <ul className="toy-links clean-list flex">
+          <li><Link to="/toy">Toys</Link></li>
+          <li><p> Labels</p></li>
+          <li><p>Label2</p></li>
+          <li><p>Label3</p></li>
+        </ul>
+        </nav>
     </header>
   )
 }

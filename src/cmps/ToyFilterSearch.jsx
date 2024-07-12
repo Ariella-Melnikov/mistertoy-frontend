@@ -32,12 +32,10 @@ export function ToyFilterSearch({ filterBy, onSetFilter }) {
   const { txt } = filterByToEdit
 
   return (
-    <section className='toy-filter-seaerch'>
       <form onSubmit={onSubmitFilter}>
         <div className='filter-input-wrapper'>
           <TextField onChange={handleChange} variant='outlined' value={txt} type='text' placeholder='Im looking for' name='txt' style={{ marginBottom: '1rem' }} fullWidth />
         </div>
       </form>
-    </section>
   )
 }

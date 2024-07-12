@@ -2,15 +2,16 @@
     display: grid;
     grid-template-columns: $layoutPadding 1fr $layoutPadding;
 
-    >*.full {
-        grid-column: 1 / -1;
-    }
 
     >*:not(.full) {
         grid-column: 2;
-        display: grid;
-        grid-auto-flow: dense;
-        grid-template-columns: repeat(6, 1fr);
+        // display: grid;
+        // grid-auto-flow: dense;
+        // grid-template-columns: repeat(6, 1fr);
+    }
+
+    >*.full {
+        grid-column: 1 / -1;
     }
 
     @include for-narrow-layout {

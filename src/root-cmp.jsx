@@ -13,7 +13,7 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { StoreLocations } from './pages/StoreLocations.jsx'
 import { ToyDash } from './pages/ToyDash.jsx'
 
-import "../src/assets/style/main.css"
+// import "../src/assets/style/main.css"
 
 
 

@@ -1,5 +1,94 @@
-header.app-header{
-    min-height: 100dvh;
+header.main-header {
+  grid-template-rows: rem(50px) rem(90px) rem(50px);
 
 
+  .upper-nav {
+    background-color: $clr3;
+    color: $gray1;
+    // grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+      @include btn($type: regular, $padding: em(15px) em(30px));
+      display: block;
+
+      &.active {
+        text-decoration: underline;
+        color: $gray1;
+      }
+    }
+
+    // .main-header-search {
+    //     svg {
+    //         width: 20px;
+    //     }
+    // }
+    .site-switcher {
+      justify-self: start;
+    }
+
+    .sign-in-tab {
+      justify-self: end;
+    }
+  }
+
+  .logo-serach {
+    background-color: $clr9;
+    align-items: center;
+    // grid-area: logo-search;
+
+    .main-header-logo {
+      justify-self: start;
+      width: rem(150px);
+
+      img {
+        width: 100%;
+      }
+    }
+    .search-bar {
+      flex: 1;
+      justify-content: center;
+      padding-left: 20px;
+
+      .filter-input-wrapper {
+        flex: 1;
+        display: flex;
+      }
+      
+      .filter-input-wrapper .MuiInputBase-root {
+        background-color: white;
+        border-radius: 20px;
+        width: 200%;
+      }
+      
+      .filter-input-wrapper .MuiInputBase-input {
+        color: var(--gray5);
+        font-size: 20px;
+        padding: 10px;
+      }
+
+    }
+  }
+  .lower-nav {
+    background-color: $clr9;
+    color: $gray1;
+    // grid-area: nav;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    li {
+      @include btn($type: regular, $padding: em(15px) em(30px));
+      display: block;
+
+      &.active {
+        text-decoration: underline;
+        color: $gray1;
+      }
+    }
+
+
+  }
 }
