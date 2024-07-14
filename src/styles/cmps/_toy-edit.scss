@@ -1,0 +1,17 @@
+.toy-edit {
+  & form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+  }
+  & h2 {
+    text-align: center;
+    margin-top: rem(10px);
+  }
+
+ & button {
+    margin-bottom: 15px;
+  }
+}
