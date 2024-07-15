@@ -36,44 +36,28 @@ export function ToyEdit() {
     price: Yup.number().required('Price is required').min(1, 'Price must be at least 1'),
     labels: Yup.array().of(Yup.string()),
   })
+  const uploadImg = async (ev, setFieldValue) => {
+    const CLOUD_NAME = 'dkykllpf5';
+    const UPLOAD_PRESET = 'toy_uploads';
+    const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`;
+    const FORM_DATA = new FormData();
 
-  function handleChange({ target }) {
-    const field = target.name
-    const value = target.type === 'number' ? +target.value || '' : target.value
-    setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
-  }
+    FORM_DATA.append('file', ev.target.files[0]);
+    FORM_DATA.append('upload_preset', UPLOAD_PRESET);
 
-  function handleLabelChange({ target }) {
-    const value = target.value
-    setToyToEdit((prevToy) => {
-      const newLabels = prevToy.labels.includes(value)
-        ? prevToy.labels.filter((label) => label !== value)
-        : [...prevToy.labels, value]
-      return { ...prevToy, labels: newLabels }
-    })
-  }
-
-  //   function handleLabelChange(event) {
-  //     setNewLabel(event.target.value)
-  //   }
-
-  //   function addLabel() {
-  //     if (newLabel.trim()) {
-  //       setToyToEdit((prevToyToEdit) => ({
-  //         ...prevToyToEdit,
-  //         labels: [...prevToyToEdit.labels, newLabel.trim()],
-  //       }))
-  //       setNewLabel('')
-  //     }
-  //   }
-
-  //   function removeLabel(index) {
-  //     setToyToEdit((prevToyToEdit) => {
-  //       const newLabels = prevToyToEdit.labels.filter((_, i) => i !== index)
-  //       return { ...prevToyToEdit, labels: newLabels }
-  //     })
-  //   }
-
+    try {
+      const res = await fetch(UPLOAD_URL, {
+        method: 'POST',
+        body: FORM_DATA,
+      });
+      const { url } = await res.json();
+      setFieldValue('imgUrl', url);
+      showSuccessMsg('Image uploaded successfully');
+    } catch (err) {
+      console.error(err);
+      showErrorMsg('Image upload failed');
+    }
+  };
   function onSaveToy(values, { setSubmitting }) {
     saveToy(values)
       .then(() => {
@@ -88,7 +72,6 @@ export function ToyEdit() {
       })
   }
 
-  // const { name, price, labels: selectedLabels, inStock } = toyToEdit
   return (
     <section className='toy-edit'>
       <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
@@ -146,6 +129,20 @@ export function ToyEdit() {
               </Select>
             </FormControl>
 
+            <input
+              type='file'
+              accept='image/*'
+              onChange={(ev) => uploadImg(ev, setFieldValue)}
+              style={{ margin: '20px 0' }}
+            />
+
+            {values.imgUrl && (
+              <div style={{ marginBottom: '20px' }}>
+                <img src={values.imgUrl} alt='Toy' style={{ maxWidth: '100px', maxHeight: '100px' }} />
+              </div>
+            )}
+
+
             <Button variant='contained' color='primary' type='submit'>
               {toyToEdit._id ? 'Save' : 'Add'}
             </Button>
@@ -155,3 +152,47 @@ export function ToyEdit() {
     </section>
   )
 }
+
+
+
+
+
+
+
+
+  // function handleChange({ target }) {
+  //   const field = target.name
+  //   const value = target.type === 'number' ? +target.value || '' : target.value
+  //   setToyToEdit((prevToy) => ({ ...prevToy, [field]: value }))
+  // }
+
+  // function handleLabelChange({ target }) {
+  //   const value = target.value
+  //   setToyToEdit((prevToy) => {
+  //     const newLabels = prevToy.labels.includes(value)
+  //       ? prevToy.labels.filter((label) => label !== value)
+  //       : [...prevToy.labels, value]
+  //     return { ...prevToy, labels: newLabels }
+  //   })
+  // }
+
+  //   function handleLabelChange(event) {
+  //     setNewLabel(event.target.value)
+  //   }
+
+  //   function addLabel() {
+  //     if (newLabel.trim()) {
+  //       setToyToEdit((prevToyToEdit) => ({
+  //         ...prevToyToEdit,
+  //         labels: [...prevToyToEdit.labels, newLabel.trim()],
+  //       }))
+  //       setNewLabel('')
+  //     }
+  //   }
+
+  //   function removeLabel(index) {
+  //     setToyToEdit((prevToyToEdit) => {
+  //       const newLabels = prevToyToEdit.labels.filter((_, i) => i !== index)
+  //       return { ...prevToyToEdit, labels: newLabels }
+  //     })
+  //   }
