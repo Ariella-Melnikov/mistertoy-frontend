@@ -12,19 +12,19 @@ import { loadToys, saveToy, setFilter, setSort, removeToyOptimistic } from '../s
 export function ToyIndex() {
   const toys = useSelector((storeState) => storeState.toyModule.toys)
   const isLoading = useSelector((storeState) => storeState.toyModule.isLoading)
-  const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
-  const sortBy = useSelector(storeState => storeState.toyModule.sortBy)
+  const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
+  const sortBy = useSelector((storeState) => storeState.toyModule.sortBy)
+  const user = useSelector((storeState) => storeState.userModule.loggedinUser)
 
   console.log('toys', toys)
 
   const [pageIdx, setPageIdx] = useState(0)
 
   useEffect(() => {
-    loadToys(pageIdx)
-      .catch(err => {
-        console.log('err:', err)
-        showErrorMsg('Cannot load toys')
-      })
+    loadToys(pageIdx).catch((err) => {
+      console.log('err:', err)
+      showErrorMsg('Cannot load toys')
+    })
   }, [filterBy, sortBy, pageIdx])
 
   function onRemoveToy(toyId) {
@@ -42,16 +42,6 @@ export function ToyIndex() {
   }
 
 
-  function onToggleToy(toy) {
-    const toyToSave = { ...toy, inStock: !toy.inStock }
-    saveToy(toyToSave)
-      .then(() => {
-        showSuccessMsg(`Updated ${toyToSave.name} successfully`)
-        return toyToSave
-      })
-      .catch(() => showErrorMsg('Had trouble updating the toy'))
-  }
-
   function onSetFilter(filterBy) {
     setFilter(filterBy)
   }
@@ -60,25 +50,28 @@ export function ToyIndex() {
     setSort(sortBy)
   }
 
-
   return (
     <section className='toy-index'>
-      <ToyFilter
-        filterBy={filterBy}
-        onSetFilter={onSetFilter}
-        sortBy={sortBy}
-        onSetSort={onSetSort}
-      />
-      <Link to='/toy/edit' className='add-toy-btn btn'>
-        Add Toy
-      </Link>
+      <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} sortBy={sortBy} onSetSort={onSetSort} />
+      {user && user.isAdmin && (
+        <button className='add-btn'>
+          <Link to='/toy/edit'>Add toy 🧸</Link>
+        </button>
+      )}
       {isLoading && <Loader />}
-      {!isLoading && <ToyList toys={toys} onRemoveToy={onRemoveToy} onToggleToy={onToggleToy} />}
-      <PaginationButtons
-        pageIdx={pageIdx}
-        setPageIdx={setPageIdx}
-        toysLength={toys.length}
-      />
+      {!isLoading && <ToyList toys={toys} user={user} onRemoveToy={onRemoveToy}  />}
+      <PaginationButtons pageIdx={pageIdx} setPageIdx={setPageIdx} toysLength={toys.length} />
     </section>
   )
 }
+
+
+// function onToggleToy(toy) {
+//   const toyToSave = { ...toy, inStock: !toy.inStock }
+//   saveToy(toyToSave)
+//     .then(() => {
+//       showSuccessMsg(`Updated ${toyToSave.name} successfully`)
+//       return toyToSave
+//     })
+//     .catch(() => showErrorMsg('Had trouble updating the toy'))
+// }
