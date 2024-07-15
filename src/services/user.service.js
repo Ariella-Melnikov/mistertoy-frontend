@@ -1,5 +1,6 @@
 import { httpService } from './http.service.js';
 
+
 export const userService = {
     getLoggedinUser,
     login,
@@ -13,6 +14,8 @@ export const userService = {
 };
 
 const STORAGE_KEY_LOGGEDIN = 'user';
+window.us = userService
+
 
 function query(filterBy = {}) {
     const queryParams = new URLSearchParams(filterBy).toString();
@@ -23,21 +26,22 @@ function getById(userId) {
     return httpService.get(`user/${userId}`);
 }
 
-function login(credentials) {
-    return httpService.post('auth/login', credentials)
+function login({ username, password }) {
+    return httpService.post('auth/login', { username, password })
         .then(user => _setLoggedinUser(user));
 }
 
-function signup(credentials) {
-    return httpService.post('auth/signup', credentials)
-        .then(user => _setLoggedinUser(user));
+function signup({ username, password, fullname, email, labels }) {
+    const user = { username, password, fullname, email, labels ,score: 10000 }
+
+    const savedUser = httpService.post('auth/signup', user)
+    if (savedUser) return _setLoggedinUser(savedUser)
+
 }
 
-function logout() {
-    return httpService.post('auth/logout')
-        .then(() => {
-            sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN);
-        });
+async function logout() {
+    await httpService.post('auth/logout')
+    sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN)
 }
 
 function getLoggedinUser() {
@@ -46,9 +50,11 @@ function getLoggedinUser() {
 
 function getEmptyCredentials() {
     return {
-        fullname: 'Admin Adminov',
-        username: 'admin',
-        password: 'admin',
+        fullname: '',
+        username: '',
+        password: '',
+        email: '', 
+        // labels: [], 
     };
 }
 
@@ -88,7 +94,7 @@ function addActivity(txt) {
 // }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, pref: user.pref, activities: user.activities };
-    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave));
-    return userToSave;
+    // const userToSave = { _id: user._id, fullname: user.fullname, balance: user.balance, pref: user.pref, activities: user.activities };
+    sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(user))
+    return user
 }

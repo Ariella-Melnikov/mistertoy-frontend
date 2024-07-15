@@ -8,12 +8,12 @@ const initialState = {
     user: userService.getLoggedinUser(),
 }
 
-export function userReducer(state = initialState, action) {
+export function userReducer(state = initialState, action = {}) {
 
     switch (action.type) {
 
         case SET_USER:
-            return { ...state, user: action.user }
+            return { ...state, loggedinUser: action.user }
         case SET_USER_BALANCE:
             if (!state.user) return state
             return { ...state, user: { ...state.user, balance: action.balance } }
