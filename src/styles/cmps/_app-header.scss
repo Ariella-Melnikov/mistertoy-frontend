@@ -2,11 +2,12 @@ header.main-header {
   grid-template-rows: rem(50px) rem(90px) rem(50px);
 
 
+
+
   .upper-nav {
     background-color: $clr3;
     color: $gray1;
     // grid-area: nav;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 
@@ -37,25 +38,33 @@ header.main-header {
   .logo-serach {
     background-color: $clr9;
     align-items: center;
+    align-content: center;
     // grid-area: logo-search;
 
     .main-header-logo {
       justify-self: start;
-      width: rem(150px);
+      width: rem(100px);
+      margin-right: rem(15px);
+      margin-block-start: 15px;
+
+
 
       img {
         width: 100%;
+        margin-left: 30px;
       }
     }
     .search-bar {
-      flex: 1;
       justify-content: center;
       padding-left: 20px;
+      margin-left: 30px;
+      margin-block-start: 15px;
 
-      .filter-input-wrapper {
-        flex: 1;
-        display: flex;
-      }
+
+      // .filter-input-wrapper {
+      //   flex: 1;
+      //   display: flex;
+      // }
       
       .filter-input-wrapper .MuiInputBase-root {
         background-color: white;
@@ -65,7 +74,7 @@ header.main-header {
       
       .filter-input-wrapper .MuiInputBase-input {
         color: var(--gray5);
-        font-size: 20px;
+        font-size: 14px;
         padding: 10px;
       }
 
@@ -74,10 +83,10 @@ header.main-header {
   .lower-nav {
     background-color: $clr9;
     color: $gray1;
-    // grid-area: nav;
-    display: flex;
     justify-content: space-between;
     align-items: center;
+    align-content: center;
+
 
     li {
       @include btn($type: regular, $padding: em(15px) em(30px));
