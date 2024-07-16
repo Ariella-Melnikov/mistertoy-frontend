@@ -27,7 +27,6 @@ export function App() {
 
             <Routes>
               <Route element={<Home />} path='/' />
-              <Route element={<LoginSignup />} path='/toy/login' />
               <Route element={<ToyDash />} path='/toy/dash' />
               {/* <Route element={<AboutUs />} path="/about" /> */}
               <Route element={<ToyIndex />} path='/toy' />
