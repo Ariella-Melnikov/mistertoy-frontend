@@ -9,6 +9,8 @@ export const SET_FILTER_BY = 'SET_FILTER_BY'
 export const SET_SORT_BY = 'SET_SORT_BY'
 export const SET_IS_LOADING = 'SET_IS_LOADING'
 export const SET_ERROR = 'SET_ERROR'
+export const SET_PAGE_IDX = 'SET_PAGE_IDX'
+
 
 export const TOY_UNDO = 'TOY_UNDO'
 
@@ -52,6 +54,9 @@ export function toyReducer(state = initialState, action = {}) {
 
     case SET_SORT_BY:
       return { ...state, sortBy: { ...action.sortBy } }
+      
+      case SET_PAGE_IDX:
+        return { ...state, filterBy: { ...state.filterBy, pageIdx: action.pageIdx } }
 
     case SET_IS_LOADING:
       return { ...state, flag: { ...state.flag, isLoading: action.isLoading } }

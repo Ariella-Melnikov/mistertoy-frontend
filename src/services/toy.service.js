@@ -31,10 +31,11 @@ export const toyService = {
   getToyLabels,
   addMsg,
   removeMsg,
+  getDataValues,
 }
 
-function query(filterBy = {}, sortBy, pageIdx) {
-  return httpService.get(BASE_URL, { filterBy, sortBy, pageIdx })
+function query(filterBy = {}, sortBy = {}) {
+  return httpService.get(BASE_URL, { filterBy, sortBy})
 }
 
 function getById(toyId) {
@@ -83,6 +84,14 @@ async function addMsg(toyId, txt) {
 async function removeMsg(toyId, msgId) {
   const removedId = await httpService.delete(`toy/${toyId}/msg/${msgId}`)
   return removedId
+}
+
+function getDataValues(labels) {
+  var newData = []
+  for (var i = 0; i < Object.keys(labels).length; i++) {
+      newData.push(Object.values(labels)[i])
+  }
+  return newData
 }
 
 function _getRandomLabels() {
