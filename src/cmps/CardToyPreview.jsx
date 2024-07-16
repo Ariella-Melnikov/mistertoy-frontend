@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography'
 import { Link } from 'react-router-dom'
 
 export function CardToyPreview({ toy, user, onRemoveToy }) {
-  const { name, inStock, price, img, _id } = toy
+  const { name, inStock, price, imgUrl, _id } = toy
   return (
     <Card sx={{ maxWidth: 220 }}>
       <div className="toy-preview">
-        <CardMedia component="img" src={img} height="250" />
+        <CardMedia component="img" src={imgUrl} height="250" />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
             {name}
