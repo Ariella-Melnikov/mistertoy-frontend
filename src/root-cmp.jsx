@@ -13,6 +13,9 @@ import { ToyIndex } from './pages/ToyIndex.jsx'
 import { StoreLocations } from './pages/StoreLocations.jsx'
 import { ToyDash } from './pages/ToyDash.jsx'
 import { LoginSignup } from './pages/LoginSignup.jsx'
+import { ReviewExplore } from './pages/ReviewExplore.jsx'
+import { UserDetails } from './pages/UserDetails.jsx'
+import { UserMsg } from './cmps/UserMsg.jsx'
 
 // import "../src/assets/style/main.css"
 
@@ -21,10 +24,9 @@ export function App() {
     <Provider store={store}>
       <Router>
         <section className='app'>
-        <AppHeader />
+          <AppHeader />
+          <UserMsg />
           <main className='main-layout'>
-      
-
             <Routes>
               <Route element={<Home />} path='/' />
               <Route element={<ToyDash />} path='/toy/dash' />
@@ -34,6 +36,9 @@ export function App() {
               <Route element={<ToyEdit />} path='/toy/edit/:toyId' />
               <Route element={<ToyDetails />} path='/toy/:toyId' />
               <Route element={<StoreLocations />} path='/toy/stores' />
+              <Route element={<ReviewExplore />} path='/review' />
+              <Route element={<UserDetails />} path='/user' />
+              <Route element={<LoginSignup />} path='/auth/login' />
             </Routes>
           </main>
           <AppFooter />

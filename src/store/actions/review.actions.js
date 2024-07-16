@@ -1,7 +1,7 @@
 import { reviewService } from '../../services/review.service.js'
 import { store } from '../store.js'
-import { REMOVE_REVIEW, ADD_REVIEW, SET_REVIEWS } from '../reducers/review.reducer'
-import { SET_WATCHED_USER } from '../reducers/user.reducer'
+import { REMOVE_REVIEW, ADD_REVIEW, SET_REVIEWS } from '../reducers/review.reducer.js'
+import { SET_WATCHED_USER } from '../reducers/user.reducer.js'
 
 // Action Creators
 export function getActionRemoveReview(reviewId) {

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { showErrorMsg } from '../services/event-bus.service.js'
+import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
 
 import { toyService } from '../services/toy.service.js'
 import { Loader } from '../cmps/Loader.jsx'
@@ -36,6 +36,7 @@ export function ToyDetails() {
   async function loadReviews() {
     try {
       const reviews = await reviewService.query({ aboutToyId: toyId })
+      console.log('reviews', reviews)
       setReviews(reviews)
     } catch (err) {
       console.log('Had issues loading reviews', err)
@@ -123,18 +124,14 @@ export function ToyDetails() {
       <section className='reviews'>
         <h5 className='toy-description-heading'>Reviews</h5>
         <ul>
-          {reviews && reviews.length > 0 ? (
-            reviews.map((review) => (
+        {!!reviews.length && reviews.map((review) => (
               <li key={review._id}>
                 By: {review.byUser.fullname}, {review.txt}
                 <button type='button' onClick={() => onRemoveReview(review._id)}>
                   ❌
                 </button>
               </li>
-            ))
-          ) : (
-            <li>No reviews available</li>
-          )}
+            ))}
         </ul>
 
         <form className='login-form' onSubmit={onSaveReview}>

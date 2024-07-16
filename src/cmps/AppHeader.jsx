@@ -6,14 +6,12 @@ import { ToyFilterSearch } from './ToyFilterSearch.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import logo from '../assets/img/logo-home.png'
 import { logout } from '../store/actions/user.actions.js'
-import { LoginSignup } from '../pages/LoginSignup.jsx'
 
 export function AppHeader() {
   const user = useSelector((storeState) => storeState.userModule.loggedinUser)
   const filterBy = useSelector((storeState) => storeState.toyModule.filterBy)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
 
   function handleSetFilter(filterBy) {
     dispatch(setFilter(filterBy))
@@ -34,43 +32,34 @@ export function AppHeader() {
     <header className='main-header full'>
       <nav className='upper-nav main-layout'>
         <div>
-          <ul className='site-switcher clean-list flex'>
-            <li>
-              <p> add coin/language</p>
-            </li>
-            <li>
-              <NavLink to='/toy/stores'>Find a store</NavLink>
-            </li>
-          </ul>
-          <ul className='sign-in-tab clean-list flex'>
-            <li>
-              {user && (
-                <section className='user-info'>
-                  {/* <p>
-                    {user.fullname} <span>${user.score.toLocaleString()}</span>
-                  </p> */}
-                  <button onClick={onLogout}>Logout</button>
-                </section>
-              )}
-              {!user && (
-                <section className='user-info'>
-                  <LoginSignup />
-                </section>
-              )}
-              <UserMsg />
-            </li>
-              <>
-                <li>
-                  <p> My Orders</p>
-                </li>
-                <li>
-                  <p> Cart</p>
-                </li>
-                <li>
-                  <NavLink to='/toy/dash'>Toy info chart</NavLink>
-                </li>
-              </>
-          </ul>
+          <div className='site-switcher flex'>
+            {/* <p> add coin/language</p> */}
+            <NavLink to='/toy/stores'>Find a store</NavLink>
+          </div>
+          <div className='sign-in-tab flex'>
+            {!user && (
+              <span className='user-info'>
+                <NavLink title='Login' to='/auth/login'>
+                  <i className='fa-solid fa-user fa-lg'></i>
+                </NavLink>
+              </span>
+            )}
+            {user && (
+              <span className='user-info'>
+                <NavLink title='user-details' to='/user'>
+                  {user.fullname}
+                </NavLink>
+                <button className='logout-btn' title='logout' onClick={onLogout}>
+                  <i className='fa-solid fa-right-from-bracket fa-lg'></i>
+                </button>
+              </span>
+            )}
+            <>
+              <p> My Orders</p>
+              <p> Cart</p>
+              <NavLink to='/toy/dash'>Toy info chart</NavLink>
+            </>
+          </div>
         </div>
       </nav>
       <div className='logo-serach main-layout'>
@@ -85,20 +74,12 @@ export function AppHeader() {
       </div>
       <div className=' lower-nav main-layout '>
         <nav>
-          <ul className='toy-links clean-list flex'>
-            <li>
-              <Link to='/toy'>Toys</Link>
-            </li>
-            <li>
-              <p> Labels</p>
-            </li>
-            <li>
-              <p>Label2</p>
-            </li>
-            <li>
-              <p>Label3</p>
-            </li>
-          </ul>
+          <div className='toy-links flex'>
+            <Link to='/toy'>Toys</Link>
+            <p> Labels</p>
+            <p>Label2</p>
+            <p>Label3</p>
+          </div>
         </nav>
       </div>
     </header>
