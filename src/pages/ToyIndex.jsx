@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import ReactPaginate from 'react-paginate'
 
 import { Loader } from '../cmps/Loader.jsx'
-import { PaginationButtons } from '../cmps/PaginationButtons.jsx'
+// import { PaginationButtons } from '../cmps/PaginationButtons.jsx'
 import { ToyList } from '../cmps/ToyList.jsx'
 import { ToyFilter } from '../cmps/ToyFilter.jsx'
 import { showErrorMsg, showSuccessMsg } from '../services/event-bus.service.js'
@@ -18,36 +19,41 @@ export function ToyIndex() {
 
   console.log('toys', toys)
 
-  const [pageIdx, setPageIdx] = useState(0)
+  const [currentPage, setCurrentPage] = useState(0)
+  const itemsPerPage = 6
+  const startIndex = currentPage * itemsPerPage
+  const endIndex = startIndex + itemsPerPage
+  const displayedToys = toys.slice(startIndex, endIndex)
 
   useEffect(() => {
-    loadToys(pageIdx).catch((err) => {
+    try {
+      loadToys()
+    } catch (err) {
       console.log('err:', err)
       showErrorMsg('Cannot load toys')
-    })
-  }, [filterBy, sortBy, pageIdx])
+    }
+  }, [filterBy, sortBy])
 
-  function onRemoveToy(toyId) {
+  async function onRemoveToy(toyId) {
     const ans = confirm('Do you want to delete this toy?')
     if (!ans) return
-    removeToyOptimistic(toyId)
-      .then(() => {
-        loadToys(pageIdx)
-        showSuccessMsg(`Removed toy successfully`)
-      })
-      .catch((err) => {
-        console.log('err:', err)
-        showErrorMsg('Cannot remove toy ' + toyId)
-      })
+    try {
+      await removeToyOptimistic(toyId)
+      showSuccessMsg(`Toy ${toyId} removed`)
+    } catch (err) {
+      console.error(`Cannot remove toy ${toyId}`, err)
+      showErrorMsg('Cannot remove toy')
+    }
   }
-
 
   function onSetFilter(filterBy) {
     setFilter(filterBy)
+    setCurrentPage(0)
   }
 
   function onSetSort(sortBy) {
     setSort(sortBy)
+    setCurrentPage(0)
   }
 
   return (
@@ -59,19 +65,15 @@ export function ToyIndex() {
         </button>
       )}
       {isLoading && <Loader />}
-      {!isLoading && <ToyList toys={toys} user={user} onRemoveToy={onRemoveToy}  />}
-      <PaginationButtons pageIdx={pageIdx} setPageIdx={setPageIdx} toysLength={toys.length} />
+      {!isLoading && <ToyList toys={toys} user={user} onRemoveToy={onRemoveToy} />}
+      <ReactPaginate
+        previousLabel={'Previous'}
+        nextLabel={'Next'}
+        pageCount={Math.ceil(toys.length / itemsPerPage)}
+        onPageChange={({ selected }) => setCurrentPage(selected)}
+        containerClassName={'pagination'}
+        activeClassName={'active'}
+      />
     </section>
   )
 }
-
-
-// function onToggleToy(toy) {
-//   const toyToSave = { ...toy, inStock: !toy.inStock }
-//   saveToy(toyToSave)
-//     .then(() => {
-//       showSuccessMsg(`Updated ${toyToSave.name} successfully`)
-//       return toyToSave
-//     })
-//     .catch(() => showErrorMsg('Had trouble updating the toy'))
-// }
